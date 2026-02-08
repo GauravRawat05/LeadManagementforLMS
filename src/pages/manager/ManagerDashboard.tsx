@@ -262,8 +262,83 @@ const ManagerDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto">
-            <Table>
+          <div>
+            {/* Mobile View - Cards */}
+            <div className="md:hidden space-y-4 p-4">
+              {filteredLeads.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  No leads found matching your filters
+                </div>
+              ) : (
+                filteredLeads.slice(0, 8).map((lead, index) => (
+                  <motion.div
+                    key={lead.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                  >
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex items-center gap-2">
+                        <input 
+                          type="checkbox" 
+                          className="rounded border-gray-300 text-primary focus:ring-primary"
+                          checked={selectedLeads.includes(lead.id)}
+                          onChange={() => toggleLeadSelection(lead.id)}
+                        />
+                        <h3 className="font-semibold text-gray-900 text-lg">{lead.name}</h3>
+                      </div>
+                      <Button size="sm" className="gradient-teal text-primary-foreground hover:opacity-90 transition-opacity text-xs px-3 py-1 h-7">
+                        Assign
+                      </Button>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Status:</span>
+                        <Badge className={statusColors[lead.status]}>
+                          {lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}
+                        </Badge>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Assigned Agent:</span>
+                        <Select defaultValue={lead.assignedAgent}>
+                          <SelectTrigger className="w-32 h-8">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {mockAgents.map((agent) => (
+                              <SelectItem key={agent.id} value={agent.name}>
+                                {agent.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">Priority:</span>
+                        <Select defaultValue="medium">
+                          <SelectTrigger className="w-24 h-8">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="high">High</SelectItem>
+                            <SelectItem value="medium">Medium</SelectItem>
+                            <SelectItem value="low">Low</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+            </div>
+
+            {/* Desktop View - Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <Table>
               <TableHeader>
                 <TableRow className="bg-muted/50">
                   <TableHead className="w-12">
@@ -353,6 +428,7 @@ const ManagerDashboard = () => {
                 )}
               </TableBody>
             </Table>
+            </div>
           </div>
         </motion.div>
 
@@ -370,8 +446,81 @@ const ManagerDashboard = () => {
         <div className="p-4 md:p-6 border-b border-border">
           <h2 className="text-lg font-semibold text-foreground">Agent Performance</h2>
         </div>
-        <div className="overflow-x-auto">
-          <Table>
+        <div>
+          {/* Mobile View - Cards */}
+          <div className="md:hidden space-y-4 p-4">
+            {mockAgents.map((agent, index) => {
+              const conversionRate = Math.round(
+                (agent.converted / agent.leadsAssigned) * 100
+              );
+              return (
+                <motion.div
+                  key={agent.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="font-semibold text-gray-900 text-lg">{agent.name}</h3>
+                    <Badge 
+                      className={`${
+                        conversionRate >= 70 ? 'bg-green-100 text-green-800' :
+                        conversionRate >= 50 ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-red-100 text-red-800'
+                      }`}
+                    >
+                      {conversionRate}%
+                    </Badge>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Leads Assigned:</span>
+                      <span className="text-sm font-medium text-gray-900">{agent.leadsAssigned}</span>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Converted:</span>
+                      <span className="text-sm font-medium text-green-600">{agent.converted}</span>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Pending:</span>
+                      <span className="text-sm font-medium text-yellow-600">{agent.pending}</span>
+                    </div>
+                    
+                    <div className="flex justify-between">
+                      <span className="text-sm text-gray-600">Conversion Rate:</span>
+                      <span className="text-sm font-medium text-gray-900">{conversionRate}%</span>
+                    </div>
+                  </div>
+                  
+                  {/* Progress Bar */}
+                  <div className="mt-3">
+                    <div className="flex justify-between text-xs text-gray-500 mb-1">
+                      <span>Progress</span>
+                      <span>{conversionRate}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div 
+                        className={`h-2 rounded-full transition-all duration-500 ${
+                          conversionRate >= 70 ? 'bg-green-600' :
+                          conversionRate >= 50 ? 'bg-yellow-600' :
+                          'bg-red-600'
+                        }`}
+                        style={{ width: `${conversionRate}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Desktop View - Table */}
+          <div className="hidden md:block overflow-x-auto">
+            <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
                 <TableHead className="min-w-[150px]">Agent Name</TableHead>
@@ -414,6 +563,7 @@ const ManagerDashboard = () => {
               })}
             </TableBody>
           </Table>
+          </div>
         </div>
       </motion.div>
     </ManagerLayout>

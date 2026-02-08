@@ -229,7 +229,85 @@ const ManagerLeads = () => {
               </div>
             </div>
           </div>
-          <div className="overflow-x-auto">
+          
+          {/* Mobile View - Cards */}
+          <div className="md:hidden space-y-4 p-4">
+            {filteredLeads.length === 0 ? (
+              <div className="text-center py-8 text-muted-foreground">
+                No leads found matching your filters
+              </div>
+            ) : (
+              filteredLeads.slice(0, 8).map((lead, index) => (
+                <motion.div
+                  key={lead.id}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3">
+                      <input 
+                        type="checkbox" 
+                        className="rounded border-gray-300 text-primary focus:ring-primary mt-1"
+                        checked={selectedLeads.includes(lead.id)}
+                        onChange={() => toggleLeadSelection(lead.id)}
+                      />
+                      <h3 className="font-semibold text-gray-900 text-lg">{lead.name}</h3>
+                    </div>
+                    <Badge className={statusColors[lead.status]}>
+                      {lead.status.charAt(0).toUpperCase() + lead.status.slice(1)}
+                    </Badge>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Assigned Agent:</span>
+                      <div className="w-36">
+                        <Select defaultValue={lead.assignedAgent}>
+                          <SelectTrigger className="h-8 text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {mockAgents.map((agent) => (
+                              <SelectItem key={agent.id} value={agent.name}>
+                                {agent.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Priority:</span>
+                      <div className="w-24">
+                        <Select defaultValue="medium">
+                          <SelectTrigger className="h-8 text-sm">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="high">High</SelectItem>
+                            <SelectItem value="medium">Medium</SelectItem>
+                            <SelectItem value="low">Low</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-2">
+                      <Button size="sm" className="w-full gradient-teal text-primary-foreground hover:opacity-90 transition-opacity">
+                        Assign Lead
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </div>
+
+          {/* Desktop View - Table */}
+          <div className="hidden md:block overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow className="bg-muted/50">

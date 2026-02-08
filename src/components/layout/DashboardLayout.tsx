@@ -1,6 +1,6 @@
 import { ReactNode, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Search, Menu, X, User, LogOut } from "lucide-react";
+import { Bell, Menu, X, User, LogOut, Search } from "lucide-react";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,27 +94,6 @@ export function DashboardLayout({ children, role, title }: DashboardLayoutProps)
             </div>
 
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Mobile Search Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="md:hidden shrink-0"
-                onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
-              >
-                <Search className="h-5 w-5" />
-              </Button>
-
-              {/* Desktop Search */}
-              <div className="relative hidden md:block">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Search leads, users..."
-                  className="w-48 lg:w-64 pl-9 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary"
-                  value={globalSearchQuery}
-                  onChange={(e) => setGlobalSearchQuery(e.target.value)}
-                />
-              </div>
-
               {/* Notifications */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
