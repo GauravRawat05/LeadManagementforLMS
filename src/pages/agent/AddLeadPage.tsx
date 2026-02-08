@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
-  ArrowLeft,
   CheckCircle2,
   AlertCircle,
   Building2,
@@ -227,17 +226,6 @@ const AddLeadPage = () => {
             className="mb-8"
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleBack}
-                  className="hover:bg-accent w-full sm:w-auto"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back
-                </Button>
-              </div>
               <div className="text-left sm:text-right">
                 <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-1">
                   Add New Lead
@@ -697,15 +685,6 @@ const AddLeadPage = () => {
                 className="w-full sm:flex-1"
               >
                 Clear Form
-              </Button>
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={handleBack}
-                disabled={isSubmitting}
-                className="w-full sm:flex-1"
-              >
-                Cancel
               </Button>
             </motion.div>
           </form>
