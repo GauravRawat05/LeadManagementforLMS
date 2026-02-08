@@ -133,12 +133,23 @@ export const mockAgents = [
   { id: "5", name: "David Lee", leadsAssigned: 35, converted: 15, pending: 14, status: "active" },
 ];
 
-export const mockUsers = [
+interface MockUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "Admin" | "Manager" | "Agent";
+  status: "Active" | "Inactive";
+}
+
+export const mockUsers: MockUser[] = [
   { id: "1", name: "Admin User", email: "admin@athenura.com", role: "Admin", status: "Active" },
   { id: "2", name: "Manager One", email: "manager1@athenura.com", role: "Manager", status: "Active" },
   { id: "3", name: "John Smith", email: "john@athenura.com", role: "Agent", status: "Active" },
   { id: "4", name: "Emily Davis", email: "emily@athenura.com", role: "Agent", status: "Active" },
   { id: "5", name: "Mike Wilson", email: "mike@athenura.com", role: "Agent", status: "Inactive" },
+  { id: "6", name: "Sarah Johnson", email: "sarah.johnson@athenura.com", role: "Manager", status: "Active" },
+  { id: "7", name: "David Lee", email: "david.lee@athenura.com", role: "Agent", status: "Active" },
+  { id: "8", name: "Jennifer Kim", email: "jennifer.kim@athenura.com", role: "Agent", status: "Active" },
 ];
 
 export const mockNotifications = [

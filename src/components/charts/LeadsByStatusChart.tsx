@@ -9,11 +9,11 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "New", value: 45, color: "hsl(186, 67%, 36%)" },
-  { name: "Contacted", value: 30, color: "hsl(186, 50%, 50%)" },
-  { name: "Qualified", value: 20, color: "hsl(38, 92%, 50%)" },
-  { name: "Converted", value: 35, color: "hsl(142, 76%, 36%)" },
-  { name: "Lost", value: 15, color: "hsl(0, 84%, 60%)" },
+  { name: "New", value: 45, color: "#1F8A98" },
+  { name: "Contacted", value: 30, color: "#17A2B8" },
+  { name: "Qualified", value: 20, color: "#20C997" },
+  { name: "Converted", value: 35, color: "#28A745" },
+  { name: "Lost", value: 15, color: "#DC3545" },
 ];
 
 export function LeadsByStatusChart() {
@@ -22,9 +22,9 @@ export function LeadsByStatusChart() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="rounded-xl border border-border bg-card p-6 shadow-sm"
+      className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
     >
-      <h3 className="mb-4 text-lg font-semibold text-foreground">
+      <h3 className="mb-4 text-lg font-semibold text-gray-900">
         Leads by Status
       </h3>
       <div className="h-[300px]">
@@ -47,17 +47,18 @@ export function LeadsByStatusChart() {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: "hsl(0, 0%, 100%)",
-                border: "1px solid hsl(0, 0%, 90%)",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid #E5E7EB",
                 borderRadius: "8px",
                 boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+                color: "#374151"
               }}
             />
             <Legend
               verticalAlign="bottom"
               height={36}
               formatter={(value) => (
-                <span className="text-sm text-foreground">{value}</span>
+                <span className="text-sm text-gray-700">{value}</span>
               )}
             />
           </PieChart>
