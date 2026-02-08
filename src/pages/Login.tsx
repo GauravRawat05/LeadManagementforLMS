@@ -54,19 +54,19 @@ const Login = () => {
   const RoleIcon = roleIcons[role];
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-gray-50">
       {/* Left Panel - Form */}
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="flex-1 flex flex-col justify-center px-8 lg:px-16 xl:px-24 bg-background"
+        className="flex-1 flex flex-col justify-center px-8 lg:px-16 xl:px-24 bg-white"
       >
         <div className="max-w-md w-full mx-auto">
           {/* Back Button */}
           <Button
             variant="ghost"
             onClick={() => navigate("/")}
-            className="mb-8 -ml-2 text-muted-foreground hover:text-foreground"
+            className="mb-8 -ml-2 text-gray-600 hover:text-gray-900"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
@@ -74,18 +74,18 @@ const Login = () => {
 
           {/* Logo */}
           <div className="flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-xl gradient-teal flex items-center justify-center shadow-lg">
-              <span className="text-xl font-bold text-primary-foreground">A</span>
+            <div className="h-10 w-10 rounded-xl bg-teal-600 flex items-center justify-center shadow-lg">
+              <span className="text-xl font-bold text-white">LF</span>
             </div>
-            <span className="text-2xl font-bold text-secondary">Athenura</span>
+            <span className="text-2xl font-bold text-gray-900">LeadFlow Hub</span>
           </div>
 
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-secondary mb-2">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Welcome back
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-gray-600">
               Sign in to access your dashboard and manage leads
             </p>
           </div>
@@ -94,59 +94,59 @@ const Login = () => {
           <form onSubmit={handleLogin} className="space-y-6">
             {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email">Email address</Label>
+              <Label htmlFor="email" className="text-gray-700">Email address</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
                   id="email"
                   type="email"
                   placeholder="name@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 border-gray-300 focus:border-teal-600 focus:ring-teal-600"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-gray-700">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                 <Input
                   id="password"
                   type="password"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 border-gray-300 focus:border-teal-600 focus:ring-teal-600"
                 />
               </div>
             </div>
 
             {/* Role Selection */}
             <div className="space-y-2">
-              <Label htmlFor="role">Login as</Label>
+              <Label htmlFor="role" className="text-gray-700">Login as</Label>
               <Select value={role} onValueChange={(v) => setRole(v as typeof role)}>
-                <SelectTrigger className="w-full">
+                <SelectTrigger className="w-full border-gray-300 focus:border-teal-600 focus:ring-teal-600">
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="admin">
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-primary" />
+                      <Shield className="h-4 w-4 text-teal-600" />
                       Admin
                     </div>
                   </SelectItem>
                   <SelectItem value="manager">
                     <div className="flex items-center gap-2">
-                      <Users className="h-4 w-4 text-primary" />
+                      <Users className="h-4 w-4 text-teal-600" />
                       Manager
                     </div>
                   </SelectItem>
                   <SelectItem value="agent">
                     <div className="flex items-center gap-2">
-                      <BarChart3 className="h-4 w-4 text-primary" />
+                      <BarChart3 className="h-4 w-4 text-teal-600" />
                       Agent
                     </div>
                   </SelectItem>
@@ -157,14 +157,14 @@ const Login = () => {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full gradient-teal text-primary-foreground py-6 text-lg shadow-lg hover:shadow-xl transition-all"
+              className="w-full bg-teal-600 hover:bg-teal-700 text-white py-6 text-lg shadow-lg hover:shadow-xl transition-all"
               disabled={isLoading}
             >
               {isLoading ? (
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                  className="h-5 w-5 border-2 border-primary-foreground border-t-transparent rounded-full"
+                  className="h-5 w-5 border-2 border-white border-t-transparent rounded-full"
                 />
               ) : (
                 <>
@@ -176,8 +176,8 @@ const Login = () => {
           </form>
 
           {/* Quick Access */}
-          <div className="mt-8 pt-8 border-t border-border">
-            <p className="text-sm text-muted-foreground mb-4 text-center">
+          <div className="mt-8 pt-8 border-t border-gray-200">
+            <p className="text-sm text-gray-600 mb-4 text-center">
               Quick access (demo mode)
             </p>
             <div className="flex gap-3">
@@ -188,7 +188,7 @@ const Login = () => {
                   setRole("admin");
                   navigate("/admin");
                 }}
-                className="flex-1"
+                className="flex-1 border-gray-300 hover:bg-gray-50"
               >
                 Admin
               </Button>
@@ -199,7 +199,7 @@ const Login = () => {
                   setRole("manager");
                   navigate("/manager");
                 }}
-                className="flex-1"
+                className="flex-1 border-gray-300 hover:bg-gray-50"
               >
                 Manager
               </Button>
@@ -210,7 +210,7 @@ const Login = () => {
                   setRole("agent");
                   navigate("/agent");
                 }}
-                className="flex-1"
+                className="flex-1 border-gray-300 hover:bg-gray-50"
               >
                 Agent
               </Button>
@@ -224,7 +224,7 @@ const Login = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="hidden lg:flex flex-1 gradient-teal items-center justify-center p-12 relative overflow-hidden"
+        className="hidden lg:flex flex-1 bg-teal-600 items-center justify-center p-12 relative overflow-hidden"
       >
         {/* Background decoration */}
         <div className="absolute inset-0 opacity-10">
@@ -239,14 +239,14 @@ const Login = () => {
             transition={{ delay: 0.4 }}
             className="h-24 w-24 rounded-2xl bg-white/20 backdrop-blur-lg flex items-center justify-center mx-auto mb-8"
           >
-            <RoleIcon className="h-12 w-12 text-primary-foreground" />
+            <RoleIcon className="h-12 w-12 text-white" />
           </motion.div>
 
           <motion.h2
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="text-3xl font-bold text-primary-foreground mb-4"
+            className="text-3xl font-bold text-white mb-4"
           >
             {role === "admin" && "System Control Center"}
             {role === "manager" && "Team Management Hub"}
@@ -257,7 +257,7 @@ const Login = () => {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-primary-foreground/80"
+            className="text-white/80"
           >
             {role === "admin" && "Full access to all system features, user management, and analytics."}
             {role === "manager" && "Manage your team, assign leads, and track performance."}

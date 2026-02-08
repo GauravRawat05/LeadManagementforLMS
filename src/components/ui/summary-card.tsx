@@ -15,19 +15,19 @@ interface SummaryCardProps {
 }
 
 const variantStyles = {
-  default: "bg-card border border-border",
-  primary: "bg-primary text-primary-foreground",
-  success: "bg-success text-success-foreground",
-  warning: "bg-warning text-warning-foreground",
-  destructive: "bg-destructive text-destructive-foreground",
+  default: "bg-white border border-gray-200 hover:shadow-lg transition-all duration-300",
+  primary: "bg-teal-600 text-white hover:bg-teal-700",
+  success: "bg-green-600 text-white hover:bg-green-700",
+  warning: "bg-amber-500 text-white hover:bg-amber-600",
+  destructive: "bg-red-600 text-white hover:bg-red-700",
 };
 
 const iconVariantStyles = {
-  default: "bg-accent text-accent-foreground",
-  primary: "bg-primary-foreground/20 text-primary-foreground",
-  success: "bg-success-foreground/20 text-success-foreground",
-  warning: "bg-warning-foreground/20 text-warning-foreground",
-  destructive: "bg-destructive-foreground/20 text-destructive-foreground",
+  default: "bg-teal-100 text-teal-600",
+  primary: "bg-white/20 text-white",
+  success: "bg-white/20 text-white",
+  warning: "bg-white/20 text-white",
+  destructive: "bg-white/20 text-white",
 };
 
 export function SummaryCard({
@@ -44,8 +44,9 @@ export function SummaryCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
       whileHover={{ scale: 1.02, y: -2 }}
+      whileTap={{ scale: 0.98 }}
       className={cn(
-        "rounded-xl p-4 md:p-6 shadow-sm transition-shadow hover:shadow-md",
+        "rounded-xl p-4 md:p-6 shadow-sm transition-all duration-300 cursor-pointer",
         variantStyles[variant]
       )}
     >
@@ -54,37 +55,54 @@ export function SummaryCard({
           <p
             className={cn(
               "text-sm font-medium",
-              variant === "default" ? "text-muted-foreground" : "opacity-80"
+              variant === "default" ? "text-gray-600" : "text-white/80"
             )}
           >
             {title}
           </p>
-          <p className="text-2xl md:text-3xl font-bold tracking-tight">{value}</p>
+          <p className={cn(
+            "text-2xl md:text-3xl font-bold tracking-tight",
+            variant === "default" ? "text-gray-900" : "text-white"
+          )}>
+            {value}
+          </p>
           {trend && (
-            <p
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: delay + 0.2 }}
               className={cn(
-                "text-xs font-medium",
+                "text-xs font-medium flex items-center gap-1",
                 trend.isPositive
-                  ? variant === "default"
-                    ? "text-success"
-                    : "opacity-90"
+                  ? variant === "default" 
+                    ? "text-green-600" 
+                    : "text-white/90"
                   : variant === "default"
-                  ? "text-destructive"
-                  : "opacity-90"
+                  ? "text-red-600"
+                  : "text-white/90"
               )}
             >
-              {trend.isPositive ? "↑" : "↓"} {Math.abs(trend.value)}% from last month
-            </p>
+              <span className={cn(
+                "text-sm",
+                trend.isPositive ? "text-green-500" : "text-red-500"
+              )}>
+                {trend.isPositive ? "↗" : "↘"}
+              </span>
+              {Math.abs(trend.value)}% from last month
+            </motion.p>
           )}
         </div>
-        <div
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: delay + 0.1, type: "spring", stiffness: 200 }}
           className={cn(
-            "rounded-lg p-2 md:p-3",
+            "rounded-lg p-2 md:p-3 transition-colors duration-200",
             iconVariantStyles[variant]
           )}
         >
           <Icon className="h-4 w-4 md:h-5 md:w-5" />
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
