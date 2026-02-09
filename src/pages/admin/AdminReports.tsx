@@ -202,7 +202,13 @@ const AdminReports = () => {
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-600 via-teal-700 to-emerald-800 p-8 text-white"
         >
           {/* Background Pattern */}
-          <div className="absolute inset-0 bg-white opacity-95" />
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 25% 25%, white 2px, transparent 2px), 
+                               radial-gradient(circle at 75% 75%, white 2px, transparent 2px)`,
+              backgroundSize: '60px 60px, 80px 80px'
+            }} />
+          </div>
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             {/* Title Section */}
@@ -466,7 +472,17 @@ const AdminReports = () => {
           className="relative"
         >
           <div className="relative overflow-hidden rounded-3xl bg-white border border-gray-100 shadow-xl">
-            <div className="absolute inset-0 bg-white opacity-95" />
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `linear-gradient(45deg, #0f766e 25%, transparent 25%), 
+                                 linear-gradient(-45deg, #0f766e 25%, transparent 25%), 
+                                 linear-gradient(45deg, transparent 75%, #0f766e 75%), 
+                                 linear-gradient(-45deg, transparent 75%, #0f766e 75%)`,
+                backgroundSize: '20px 20px',
+                backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
+              }} />
+            </div>
 
             <div className="relative z-10">
               <Tabs defaultValue="overview" className="space-y-0">
@@ -542,30 +558,32 @@ const AdminReports = () => {
                       transition={{ delay: 1.2 }}
                       className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6"
                     >
-                      <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
-                        <div className="bg-gradient-to-r from-teal-50 to-emerald-50 p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">Leads by Status</h3>
-                        </div>
-                        <div className="bg-white p-6">
+                      <Card className="rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
+                        <CardHeader className="bg-gradient-to-r from-teal-50 to-emerald-50 border-b border-gray-100">
+                          <CardTitle className="text-base font-semibold text-gray-900">Leads by Status</CardTitle>
+                        </CardHeader>
+                        <CardContent className="bg-white p-6">
                           <LeadsByStatusChart />
-                        </div>
-                      </motion.div>
-                      <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
-                        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">Monthly Growth</h3>
-                        </div>
-                        <div className="bg-white p-6">
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
+                        <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-100">
+                          <CardTitle className="text-base font-semibold text-gray-900">Monthly Growth</CardTitle>
+                        </CardHeader>
+                        <CardContent className="bg-white p-6">
                           <MonthlyGrowthChart />
-                        </div>
-                      </motion.div>
-                      <motion.div whileHover={{ scale: 1.02 }} className="rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
-                        <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4">
-                          <h3 className="font-semibold text-gray-900 mb-2">Agent Performance</h3>
-                        </div>
-                        <div className="bg-white p-6">
+                        </CardContent>
+                      </Card>
+                      
+                      <Card className="rounded-2xl overflow-hidden bg-white shadow-lg border border-gray-200">
+                        <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b border-gray-100">
+                          <CardTitle className="text-base font-semibold text-gray-900">Agent Performance</CardTitle>
+                        </CardHeader>
+                        <CardContent className="bg-white p-6">
                           <AgentPerformanceChart />
-                        </div>
-                      </motion.div>
+                        </CardContent>
+                      </Card>
                     </motion.div>
                   </TabsContent>
 
@@ -744,19 +762,34 @@ const AdminReports = () => {
                           className="group"
                         >
                           <Card className="relative overflow-hidden border-gray-200 hover:shadow-2xl transition-all duration-500 cursor-pointer rounded-2xl bg-white">
-                            <div className="absolute inset-0 bg-white opacity-95" />
+                            {/* Background Gradient */}
+                            <motion.div
+                              className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
+                              style={{
+                                background: "linear-gradient(135deg, #0f766e, #047857, #065f46)"
+                              }}
+                              animate={{
+                                background: [
+                                  "linear-gradient(135deg, #0f766e, #047857, #065f46)",
+                                  "linear-gradient(225deg, #0f766e, #047857, #065f46)",
+                                  "linear-gradient(315deg, #0f766e, #047857, #065f46)",
+                                  "linear-gradient(135deg, #0f766e, #047857, #065f46)"
+                                ]
+                              }}
+                              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                            />
 
                             <CardHeader className="relative z-10 pb-3 bg-gradient-to-r from-gray-50 to-teal-25">
-                              <div className="flex items-center gap-4">
+                              <div className="flex items-center gap-3">
                                 <motion.div
-                                  animate={{
-                                    y: [0, -2, 0],
-                                    rotate: [0, 5, 0]
+                                  animate={{ 
+                                    rotate: [0, 5, -5, 0],
+                                    scale: [1, 1.1, 1]
                                   }}
-                                  transition={{
-                                    duration: 3,
+                                  transition={{ 
+                                    duration: 3, 
                                     repeat: Infinity,
-                                    delay: index * 0.2
+                                    delay: index * 0.2 
                                   }}
                                   className="p-3 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl shadow-lg group-hover:shadow-2xl transition-shadow duration-500"
                                 >

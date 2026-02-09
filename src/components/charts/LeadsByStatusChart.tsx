@@ -23,6 +23,7 @@ export function LeadsByStatusChart() {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}
       className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow duration-300"
+      style={{ backgroundColor: '#FFFFFF' }}
     >
       <h3 className="mb-4 text-lg font-semibold text-gray-900">
         Leads by Status
